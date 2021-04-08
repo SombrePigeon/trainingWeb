@@ -1,9 +1,18 @@
 version: '3.3'
 
+
 services:
     apache:
         image: httpd:latest
-        ports:
-            - 8080:80
         volumes:
             - ./http:/usr/local/apache2/htdocs/:ro
+        environment:
+            #for nginx-proxy
+            - VIRTUAL_HOST=test.localhost  
+        networks:
+            - net-proxy
+
+networks:
+  net-proxy:
+    external:
+      name: nginxproxygitdeploy_net-proxy
